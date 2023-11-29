@@ -25,4 +25,8 @@ export class CryptocurrenciesFacade {
   getCryptocurrenciesCollection(): void {
     this.store.dispatch(fromCryptocurrenciesActions.getCryptocurrenciesCollection());
   }
+
+  toggleCryptocurrencyFavorite(id: string): void {
+    this.store.dispatch(fromCryptocurrenciesActions.toggleCryptocurrencyFavorite({payload: { id }}));
+  }
 }

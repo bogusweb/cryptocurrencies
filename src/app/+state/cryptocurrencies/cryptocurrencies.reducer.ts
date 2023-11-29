@@ -39,6 +39,17 @@ const reducer = createReducer(
         ...state,
         loaded: true,
       })
+  ),
+  on(
+    fromCryptocurrenciesActions.toggleCryptocurrencyFavorite,
+    (state, { payload }) =>
+      cryptocurrenciesAdapter.updateOne({
+        id: payload.id,
+        changes: {
+          ...state.entities[payload.id],
+          isFavorite: !state.entities[payload.id]!.isFavorite
+        }
+      }, state)
   )
 );
 

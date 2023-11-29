@@ -13,7 +13,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {},
+    "paths": {
+      "@app/state": ["src/app/+state/index.ts"],
+      "@app/injectables": ["src/app/injectables/index.ts"],
+      "@app/services": ["src/app/services/index.ts"],
+      "@app/domain/*": ["src/app/domain/*"]
+    },
     "useDefineForClassFields": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

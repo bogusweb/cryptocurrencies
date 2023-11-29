@@ -46,6 +46,10 @@
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "proxyConfig": "proxy.conf.js",
+        "disableHostCheck": true
+      },
       "configurations": {
         "production": {
           "buildTarget": "cryptocurrency:build:production"

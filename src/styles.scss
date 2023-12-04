@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+@use "styles/variables" as variables;
+@use "styles/mixins" as mixins;
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+  grid-column-gap: 16px;
+
+  @include mixins.breakpoint-up(variables.$bp-2) {
+    width: variables.$bp-2;
+    padding-left: 16px;;
+    padding-right: 16px;;
+    grid-column-gap: 16px;;
+  }
+
+  @include mixins.breakpoint-up(variables.$bp-3) {
+    width: variables.$bp-3;
+  }
+
+  @include mixins.breakpoint-up(variables.$bp-4) {
+    width: variables.$bp-4;
+  }
+}

@@ -8,14 +8,14 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import * as fromCryptocurrencies from './+state/cryptocurrencies/cryptocurrencies.reducer';
 import { CryptocurrenciesEffects } from './+state/cryptocurrencies/cryptocurrencies.effects';
-import { CryptocurrenciesFacade } from './+state/cryptocurrencies/cryptocurrencies.facade';
+import { CryptocurrenciesFacade } from './+state/cryptocurrencies';
 import { provideHttpClient } from '@angular/common/http';
 import { API_URL } from '@app/injectables';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-        provideAnimations(),
-        provideStore(),
+    provideAnimations(),
+    provideStore(),
     provideEffects(CryptocurrenciesEffects),
     provideState(
       fromCryptocurrencies.CRYPTOCURRENCIES_FEATURE_KEY,
@@ -29,6 +29,6 @@ export const appConfig: ApplicationConfig = {
       provide: API_URL,
       useValue: '/rest/api'
     },
-        importProvidersFrom(TuiRootModule)
-    ],
+    importProvidersFrom(TuiRootModule)
+  ],
 };

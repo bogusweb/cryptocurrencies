@@ -1,0 +1,43 @@
+@use 'sass:math';
+@use './variables' as variables;
+
+@mixin breakpoint-up($bp) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+@mixin breakpoint-between($bp-min, $bp-max) {
+  @media (min-width: $bp-min) and (max-width: $bp-max) {
+    @content;
+  }
+}
+
+@mixin breakpoint-down($bp) {
+  @media (max-width: $bp) {
+    @content;
+  }
+}
+
+@mixin breakpoint-smartphone {
+  @media (max-width:variables.$bp-1) {
+    @content;
+  }
+}
+
+@mixin breakpoint-tablet {
+  @media (min-width:variables.$bp-1 + 1px) and (max-width:variables.$bp-2) {
+    @content;
+  }
+}
+
+@mixin breakpoint-desktop {
+  @media (min-width:variables.$bp-2) {
+    @content;
+  }
+}
+
+@mixin breakpoint-mobile {
+  @media (max-width:variables.$bp-1 - 1px) {
+    @content;
+  }
+}

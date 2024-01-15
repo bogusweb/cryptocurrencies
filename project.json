@@ -27,6 +27,11 @@
             "glob": "**/*",
             "input": "node_modules/@taiga-ui/icons/src",
             "output": "assets/taiga-ui/icons"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/cryptocurrency-icons/32/color",
+            "output": "assets/cryptocurrency-icons"
           }
         ],
         "styles": [

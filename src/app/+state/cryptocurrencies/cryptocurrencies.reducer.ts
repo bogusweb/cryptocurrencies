@@ -6,11 +6,13 @@ import { Cryptocurrency } from '@app/domain/models';
 
 export const CRYPTOCURRENCIES_FEATURE_KEY = 'cryptocurrencies';
 
-export interface CryptocurrenciesState
-  extends EntityState<Cryptocurrency> {
-  selectedId?: string;
+export type CryptocurrenciesEntityState = EntityState<Cryptocurrency>;
+
+export interface CryptocurrenciesState {
+  collection: CryptocurrenciesEntityState;
+  selectedId: string | null;
   loaded: boolean;
-  error?: string | null;
+  error: string | null;
 }
 
 export interface CryptocurrenciesPartialState {
@@ -18,12 +20,16 @@ export interface CryptocurrenciesPartialState {
 }
 
 export const cryptocurrenciesAdapter: EntityAdapter<Cryptocurrency> =
-  createEntityAdapter<Cryptocurrency>();
-
-export const initialCryptocurrenciesState: CryptocurrenciesState =
-  cryptocurrenciesAdapter.getInitialState({
-    loaded: false,
+  createEntityAdapter<Cryptocurrency>({
+    selectId: (crypto: Cryptocurrency) => crypto.id
   });
+
+export const initialCryptocurrenciesState: CryptocurrenciesState = {
+  collection: cryptocurrenciesAdapter.getInitialState(),
+  loaded: false,
+  selectedId: null,
+  error: null
+};
 
 const reducer = createReducer(
   initialCryptocurrenciesState,
@@ -33,23 +39,30 @@ const reducer = createReducer(
     error: null,
   })),
   on(
-    fromCryptocurrenciesActions.getCryptocurrenciesCollectionSuccess,
-    (state, { payload }) =>
-      cryptocurrenciesAdapter.setAll(payload, {
-        ...state,
-        loaded: true,
-      })
+    fromCryptocurrenciesActions.getCryptocurrenciesCollectionSuccess, (state, { payload }) => ({
+      ...state,
+      loaded: true,
+      collection: cryptocurrenciesAdapter.setAll(payload, state.collection)
+    })
   ),
   on(
     fromCryptocurrenciesActions.toggleCryptocurrencyFavorite,
-    (state, { payload }) =>
-      cryptocurrenciesAdapter.updateOne({
+    (state: CryptocurrenciesState, { payload }) => ({
+      ...state,
+      collection: cryptocurrenciesAdapter.updateOne({
         id: payload.id,
         changes: {
-          ...state.entities[payload.id],
-          isFavorite: !state.entities[payload.id]!.isFavorite
+          isFavorite: payload.value
         }
-      }, state)
+      }, state.collection)
+    })
+  ),
+  on(
+    fromCryptocurrenciesActions.setSelectedCryptocurrency,
+    (state: CryptocurrenciesState, { payload }) => ({
+      ...state,
+      selectedId: payload.id
+    })
   )
 );
 

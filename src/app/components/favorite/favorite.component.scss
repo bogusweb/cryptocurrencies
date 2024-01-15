@@ -1,0 +1,13 @@
+@use '../../../styles/variables' as var;
+
+:host {
+  width: 16px;
+  height: 16px;
+  display: block;
+  cursor: pointer;
+  color: #606060;
+
+  &.favorite--checked {
+    color: var.$main-color
+  }
+}

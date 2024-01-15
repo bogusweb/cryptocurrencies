@@ -2,12 +2,17 @@
 @use "styles/variables" as variables;
 @use "styles/mixins" as mixins;
 
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 .container {
   margin: 0 auto;
+  padding-bottom: 25px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   padding-left: 0;

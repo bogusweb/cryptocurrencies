@@ -2,12 +2,8 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { API_URL } from '@app/injectables';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { GetCryptocurrenciesSuccessPayload, GetCryptocurrencyPayload } from '@app/domain/payloads';
 import { GetCryptocurrencySuccessPayload } from '@app/domain/payloads/get-cryptocurrency-success.payload';
-import { CryptocurrencyDTO } from '@app/domain/dto';
-import { CryptocurrencyCollection } from '@app/domain/models/cryptocurrency-collection';
-import { createCryptocurrency } from '@app/domain/adapters';
 
 @Injectable({
   providedIn: 'root'

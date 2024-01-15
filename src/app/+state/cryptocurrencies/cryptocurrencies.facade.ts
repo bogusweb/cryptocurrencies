@@ -3,6 +3,7 @@ import { select, Store, Action } from '@ngrx/store';
 
 import * as CryptocurrenciesSelectors from './cryptocurrencies.selectors';
 import {fromCryptocurrenciesActions} from "./cryptocurrencies.actions";
+import { Cryptocurrency } from '@app/domain/models';
 
 @Injectable()
 export class CryptocurrenciesFacade {
@@ -18,15 +19,25 @@ export class CryptocurrenciesFacade {
   allCryptocurrencies$ = this.store.pipe(
     select(CryptocurrenciesSelectors.selectAllCryptocurrencies)
   );
-  selectedCryptocurrencies$ = this.store.pipe(
-    select(CryptocurrenciesSelectors.selectEntity)
-  );
+  selectSelectedCryptocurrency$ = this.store
+    .pipe(select(CryptocurrenciesSelectors.selectSelectedEntity));
 
   getCryptocurrenciesCollection(): void {
     this.store.dispatch(fromCryptocurrenciesActions.getCryptocurrenciesCollection());
   }
 
-  toggleCryptocurrencyFavorite(id: string): void {
-    this.store.dispatch(fromCryptocurrenciesActions.toggleCryptocurrencyFavorite({payload: { id }}));
+  setSelectedCryptocurrency(id: string | null): void {
+    this.store.dispatch(fromCryptocurrenciesActions.setSelectedCryptocurrency({
+      payload: {id}
+    }));
+  }
+
+  toggleCryptocurrencyFavorite(cryptocurrency: Cryptocurrency): void {
+    this.store.dispatch(fromCryptocurrenciesActions.toggleCryptocurrencyFavorite({
+      payload: {
+        id: cryptocurrency.id,
+        value: !cryptocurrency.isFavorite
+      }
+    }));
   }
 }

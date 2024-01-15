@@ -17,7 +17,8 @@
       "@app/state": ["src/app/+state/index.ts"],
       "@app/injectables": ["src/app/injectables/index.ts"],
       "@app/services": ["src/app/services/index.ts"],
-      "@app/domain/*": ["src/app/domain/*"]
+      "@app/domain/*": ["src/app/domain/*"],
+      "@app/components/*": ["src/app/components/*"]
     },
     "useDefineForClassFields": false,
     "esModuleInterop": true,

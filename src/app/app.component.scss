@@ -32,31 +32,3 @@
     gap: 8px;
   }
 }
-
-.title {
-  grid-column: 1 / 13;
-  text-align: center;
-
-  h1 {
-    color: #000;
-    font-size: 36px;
-    font-weight: 900;
-  }
-
-  p {
-    color: #606060;
-    font-size: 14px;
-    font-weight: 400;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-
-    span {
-      font-weight: 700;
-      align-items: center;
-      color: #509747;
-      display: inline-flex;
-      gap: 4px;
-    }
-  }
-}

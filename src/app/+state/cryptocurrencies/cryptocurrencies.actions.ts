@@ -6,7 +6,8 @@ export namespace fromCryptocurrenciesActions {
   export enum Types {
     GetCryptocurrenciesCollection = '[Cryptocurrencies] Get Cryptocurrencies Collection',
     GetCryptocurrenciesCollectionSuccess = '[Cryptocurrencies] Get Cryptocurrencies Collection Success',
-    ToggleCryptocurrencyFavorite = '[Cryptocurrencies] Toggle Specific Cryptocurrency Favorite state'
+    ToggleCryptocurrencyFavorite = '[Cryptocurrencies] Toggle Specific Cryptocurrency Favorite state',
+    SetSelectedCryptocurrency = '[Cryptocurrencies] Set selected cryptocurrency'
   }
 
   export const getCryptocurrenciesCollection = createAction(
@@ -20,7 +21,12 @@ export namespace fromCryptocurrenciesActions {
 
   export const toggleCryptocurrencyFavorite = createAction(
     Types.ToggleCryptocurrencyFavorite,
-    props<ActionPayload<{id: string}>>()
+    props<ActionPayload<{id: string, value: boolean}>>()
+  );
+
+  export const setSelectedCryptocurrency = createAction(
+    Types.SetSelectedCryptocurrency,
+    props<ActionPayload<{id: string | null}>>()
   );
 
 }

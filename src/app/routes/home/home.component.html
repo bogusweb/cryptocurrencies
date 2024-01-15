@@ -1,3 +1,34 @@
-@for (crypto of cryptocurrencies$ | async; track crypto.id) {
- {{crypto.name}}
-}
+<div class="title">
+  <h1>Today's Cryptocurrency Prices</h1>
+  <p>The global crypto market cap is <strong>$1.42T</strong>, a <span><svg width="8" height="6" viewBox="0 0 8 6" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 0L8 6H0L4 0Z" fill="#509747"/></svg> 2.04%</span> increase over the last day. <a href="#">Read More</a></p>
+</div>
+
+<table class="currency-table">
+  <thead>
+    <tr>
+      @for (column of columns; track column) {
+        <th>{{column}}</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (crypto of cryptocurrencies$ | async; track crypto.id; let index = $index) {
+      <tr (click)="setSelectedCryptocurrency(crypto.id)">
+        <td class="table__cell table__cell--center table__cell--favorite"><app-favorite [checked]="crypto.isFavorite" (click)="toggleFavorite(crypto, $event)" /></td>
+        <td class="table__cell table__cell--center">{{index+1}}</td>
+        <td class="table__cell table__cell--name">
+          <img src="assets/cryptocurrency-icons/{{crypto.symbol | lowercase}}.png" />
+          <strong>{{crypto.name}}</strong>
+          <span>{{crypto.symbol}}</span>
+        </td>
+        <td class="table__cell">${{(crypto.quotes['USD']?.price || 0) | tuiFormatNumber}}</td>
+        <td class="table__cell">{{crypto.quotes['USD']?.percent_change_1h}}%</td>
+        <td class="table__cell">{{crypto.quotes['USD']?.percent_change_24h}}%</td>
+        <td class="table__cell">{{crypto.quotes['USD']?.percent_change_7d}}%</td>
+        <td class="table__cell">{{(crypto.quotes['USD']?.market_cap || 0) | tuiFormatNumber}}</td>
+        <td class="table__cell">{{(crypto.quotes['USD']?.volume_24h || 0) | tuiFormatNumber}}</td>
+        <td class="table__cell">{{(crypto.circulating_supply || 0) | tuiFormatNumber}}</td>
+      </tr>
+    }
+  </tbody>
+</table>

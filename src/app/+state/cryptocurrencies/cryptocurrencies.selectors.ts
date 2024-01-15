@@ -2,8 +2,9 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   CRYPTOCURRENCIES_FEATURE_KEY,
   CryptocurrenciesState,
-  cryptocurrenciesAdapter,
+  cryptocurrenciesAdapter, CryptocurrenciesEntityState,
 } from './cryptocurrencies.reducer';
+import { Cryptocurrency } from '@app/domain/models';
 
 // Lookup the 'Cryptocurrencies' feature state managed by NgRx
 export const selectCryptocurrenciesState =
@@ -23,12 +24,12 @@ export const selectCryptocurrenciesError = createSelector(
 
 export const selectAllCryptocurrencies = createSelector(
   selectCryptocurrenciesState,
-  (state: CryptocurrenciesState) => selectAll(state)
+  (state: CryptocurrenciesState) => selectAll(state.collection)
 );
 
 export const selectCryptocurrenciesEntities = createSelector(
   selectCryptocurrenciesState,
-  (state: CryptocurrenciesState) => selectEntities(state)
+  (state: CryptocurrenciesState) => selectEntities(state.collection)
 );
 
 export const selectSelectedId = createSelector(
@@ -36,8 +37,13 @@ export const selectSelectedId = createSelector(
   (state: CryptocurrenciesState) => state.selectedId
 );
 
-export const selectEntity = createSelector(
+export const selectSelectedEntity = createSelector(
   selectCryptocurrenciesEntities,
   selectSelectedId,
   (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
+);
+
+export const selectEntityById = (id: string) => createSelector(
+  selectCryptocurrenciesEntities,
+  (entities) => entities[id]
 );

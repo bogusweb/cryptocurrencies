@@ -3,10 +3,11 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { fromCryptocurrenciesActions } from './cryptocurrencies.actions';
 import { CryptocurrenciesDataService } from '@app/services';
 import { GetCryptocurrenciesSuccessPayload } from '@app/domain/payloads';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { createCryptocurrency } from '@app/domain/adapters';
 import { CryptocurrencyCollection } from '@app/domain/models/cryptocurrency-collection';
 import { fetch } from '@nx/angular';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CryptocurrenciesEffects {
@@ -31,6 +32,7 @@ export class CryptocurrenciesEffects {
 
   constructor(
     private readonly action$: Actions,
-    private readonly cryptocurrenciesDataService: CryptocurrenciesDataService
+    private readonly cryptocurrenciesDataService: CryptocurrenciesDataService,
+    private readonly router: Router
   ) {}
 }
